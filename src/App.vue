@@ -6,7 +6,7 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <p class="text-muted" lingdex="2">Communication Vue.js App © Copyright {{ new Date().getFullYear() }}</p>
+        <p class="text-muted" lingdex="2">Communication App © Copyright {{ new Date().getFullYear() }}</p>
       </div>
     </footer>
   </div>
