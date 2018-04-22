@@ -65,7 +65,7 @@ export default {
         'id' : null,
         'name': '',
       },
-      contacts: []
+      contacts: [],
     }
   },
   mounted() {
@@ -84,10 +84,7 @@ export default {
       return this.contacts
       .filter(item =>(item.name.toLowerCase().indexOf(this.editContactData.name.toLowerCase()) > -1))
       .filter(item =>(item.id == this.editContactData.id || !this.editContactData.id));
-    }
-  },
-  methods: {
-
+    },
   }
 }
 </script>

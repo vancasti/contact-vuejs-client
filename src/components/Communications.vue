@@ -10,21 +10,27 @@
           <tr>
             <th>
               Type
+              <span class="fa fa-sort" v-on:click="sortBy('type')"/>
             </th>
             <th>
               Origin
+              <span class="fa fa-sort" v-on:click="sortBy('origin')"/>
             </th>
             <th>
               Destiny
+              <span class="fa fa-sort" v-on:click="sortBy('destiny')"/>
             </th>
             <th>
               Incoming
+              <span class="fa fa-sort" v-on:click="sortBy('incoming')"/>
             </th>
             <th>
               Datetime
+              <span class="fa fa-sort" v-on:click="sortBy('datetime')"/>
             </th>
             <th>
               Duration
+              <span class="fa fa-sort" v-on:click="sortBy('duration')"/>
             </th>
           </tr>
         </thead>
@@ -64,7 +70,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
+import {_} from 'vue-underscore';;
 export default {
   name: 'Communications',
   data () {
@@ -78,10 +85,12 @@ export default {
       duration: '',
       communications: [],
       contactId: this.$route.params.id,
+      sortKey: ['type'],
+      sortOrder: ['asc']
     }
   },
   mounted() {
-    axios({ method: "GET", "url": this.$hostname + "/communications/611222333" })
+    axios({ method: 'GET', 'url': this.$hostname + '/communications/611222333' })
       .then(result => {
         this.communications = result.data.communications;
     }, error => {
@@ -90,9 +99,21 @@ export default {
   },
   computed: {
     filteredCommunications() {
-      return this.communications.filter(item => {
+      this.filteredData = this.communications.filter(item => {
          return item.contact == this.contactId;
-      })
+      });
+      this.sortedData = _.sortBy(this.filteredData, this.sortKey);
+      return (this.sortOrder === 'asc') ? this.sortedData : this.sortedData.reverse();
+    },
+  },
+  methods: {
+    sortBy: function(key) {
+        if (key == this.sortKey) {
+            this.sortOrder = (this.sortOrder == 'asc') ? 'desc' : 'asc';
+        } else {
+            this.sortKey = key;
+            this.sortOrder = 'asc';
+        }
     },
   },
   beforeCreate () {
